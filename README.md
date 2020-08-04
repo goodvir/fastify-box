@@ -16,7 +16,8 @@
 </p>
 <br>
 
-Web application template based on `fastify`, with customized extensions supported by the community.
+[Fastify-Box](https://github.com/goodvir/fastify-box)
+web application template based on `fastify`, with customized extensions supported by the community.
 
 [Fastify](https://www.fastify.io) is a web framework highly focused on providing the best developer experience 
 with the least overhead and a powerful plugin architecture. It is inspired by Hapi and Express and 
