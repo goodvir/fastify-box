@@ -134,7 +134,7 @@ fastify.addHook('onRequest', (request, reply, done) => {
 
 // Logging the content of requests
 fastify.addHook('preHandler', (request, reply, done) => {
-  ;['params', 'query', 'body'].forEach(x => {
+  ;['params', 'query', 'body'].forEach((x) => {
     if (request[x] && Object.keys(request[x]).length) request.log.debug(`request ${x}: ${JSON.stringify(request[x])}`)
   })
   done()

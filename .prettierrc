@@ -7,7 +7,7 @@
   "quoteProps": "consistent",
   "trailingComma": "none",
   "bracketSpacing": false,
-  "arrowParens": "avoid",
+  "arrowParens": "always",
   "insertPragma": false,
   "endOfLine": "lf"
 }

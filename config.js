@@ -15,7 +15,7 @@ require('dotenv').config()
 const path = require('path')
 
 const getValue = (name, defaultValue, boolean = false) => {
-  const bool = x => {
+  const bool = (x) => {
     const param = ['false', '0', 'none', 'null', '']
     return param.includes(String(x).toLowerCase()) ? false : Boolean(x)
   }
@@ -29,7 +29,7 @@ const config = {
   address: getValue('FST_ADDRESS', '0.0.0.0'),
   maxParamLength: getValue('FST_MAX_PARAM_LENGTH', 300),
   pluginTimeout: getValue('FST_PLUGIN_TIMEOUT', 15000),
-  logLevel: getValue('FST_LOG_LEVEL', 'info'),
+  logLevel: getValue('FST_LOG_LEVEL', process.env.NODE_ENV === 'development' ? 'debug' : 'info'),
   debug: process.env.NODE_ENV === 'development',
 
   // Plugins settings
