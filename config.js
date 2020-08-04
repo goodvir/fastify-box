@@ -15,9 +15,9 @@ require('dotenv').config()
 const path = require('path')
 
 const getValue = (name, defaultValue, boolean = false) => {
-  const bool = (x) => {
+  const bool = x => {
     const param = ['false', '0', 'none', 'null', '']
-    return (param.includes(String(x).toLowerCase())) ? false : Boolean(x)
+    return param.includes(String(x).toLowerCase()) ? false : Boolean(x)
   }
   const val = process.env[name] || defaultValue
   return boolean ? bool(val) : val
@@ -51,7 +51,7 @@ const config = {
     plugins: path.join(__dirname, 'core', 'plugins'),
     services: path.join(__dirname, 'core', 'services'),
     static: path.join(__dirname, 'core', 'static'),
-    templates: path.join(__dirname, 'core', 'templates'),
+    templates: path.join(__dirname, 'core', 'templates')
   }
 }
 

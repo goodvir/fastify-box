@@ -14,11 +14,9 @@ const fastifyPlugin = require('fastify-plugin')
 
 // noinspection JSUnusedLocalSymbols
 async function examplePlugins(fastify, options) {
-
   // fastify.register(require('fastify-mongodb'), {
   //   url: 'mongodb://localhost:27017/test_database'
   // })
-
 }
 
 // Wrapping a plugin function with fastify-plugin exposes the decorators

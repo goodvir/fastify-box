@@ -40,8 +40,7 @@ require('make-promises-safe')
 // Loading plugins from the Fastify ecosystem
 // To have accepts in your request object.
 // https://github.com/fastify/fastify-accepts
-if (config.plugins.accepts)
-  fastify.register(require('fastify-accepts'))
+if (config.plugins.accepts) fastify.register(require('fastify-accepts'))
 
 // Supports gzip, deflate
 // https://github.com/fastify/fastify-compress
@@ -52,8 +51,7 @@ if (config.plugins.compress)
 
 // Enables the use of CORS
 // https://github.com/fastify/fastify-cors
-if (config.plugins.cors)
-  fastify.register(require('fastify-cors'))
+if (config.plugins.cors) fastify.register(require('fastify-cors'))
 
 // Important security headers
 // https://github.com/fastify/fastify-helmet
@@ -116,10 +114,12 @@ if (config.plugins.render) {
   fastify.register(require('point-of-view'), {
     engine: {ejs: require('ejs')},
     root: config.path.templates,
-    options: config.debug ? {} : {
-      useHtmlMinifier: minifier,
-      htmlMinifierOptions: minifierOpts
-    }
+    options: config.debug
+      ? {}
+      : {
+          useHtmlMinifier: minifier,
+          htmlMinifierOptions: minifierOpts
+        }
   })
 }
 
@@ -134,16 +134,15 @@ fastify.addHook('onRequest', (request, reply, done) => {
 
 // Logging the content of requests
 fastify.addHook('preHandler', (request, reply, done) => {
-  ['params', 'query', 'body'].forEach((x) => {
-    if (request[x] && Object.keys(request[x]).length)
-      request.log.debug(`request ${x}: ${JSON.stringify(request[x])}`)
+  ;['params', 'query', 'body'].forEach(x => {
+    if (request[x] && Object.keys(request[x]).length) request.log.debug(`request ${x}: ${JSON.stringify(request[x])}`)
   })
   done()
 })
 
 // Logging the content of response
 fastify.addHook('onSend', (request, reply, payload, done) => {
-  const err = null;
+  const err = null
   if (payload && typeof payload === 'string' && payload.length) {
     const pl = payload.length <= 300 ? payload : payload.slice(0, 300) + '...'
     request.log.debug(`response payload: ${pl}`)
@@ -166,13 +165,10 @@ fastify.register(autoLoad, {
 })
 
 // Start server
-fastify.listen(
-  Number(config.port),
-  String(config.address),
-  function (err) {
-    if (err) {
-      // noinspection JSUnresolvedFunction
-      fastify.log.error(err)
-      process.exit(1)
-    }
-  })
+fastify.listen(Number(config.port), String(config.address), function (err) {
+  if (err) {
+    // noinspection JSUnresolvedFunction
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})

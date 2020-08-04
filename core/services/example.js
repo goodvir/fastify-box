@@ -13,7 +13,6 @@
 
 // noinspection JSUnusedLocalSymbols
 async function exampleService(fastify, options) {
-
   fastify.get('/', async (request, reply) => {
     reply.view('index.html', {datetime: new Date().toISOString()})
     return reply
@@ -22,7 +21,6 @@ async function exampleService(fastify, options) {
   fastify.get('/json', (request, reply) => {
     reply.send({datetime: new Date().toISOString()})
   })
-
 }
 
 module.exports = exampleService
