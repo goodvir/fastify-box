@@ -38,6 +38,7 @@ const config = {
     compress: getValue('FST_COMPRESS', false, true),
     cors: getValue('FST_CORS', false, true),
     helmet: getValue('FST_HELMET', true, true),
+    multipart: getValue('FST_MULTIPART', true, true),
     rateLimit: getValue('FST_RATE_LIMIT', true, true),
     sensible: getValue('FST_SENSIBLE', true, true),
     static: getValue('FST_STATIC', true, true),

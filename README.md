@@ -80,6 +80,7 @@ note that during start the application tries to access the `.env` file to load t
 | `FST_COMPRESS`   | [fastify-compress](https://github.com/fastify/fastify-compress)     | `false` |
 | `FST_CORS`       | [fastify-cors](https://github.com/fastify/fastify-cors)             | `false` |
 | `FST_HELMET`     | [fastify-helmet](https://github.com/fastify/fastify-helmet)         | `true`  |
+| `FST_MULTIPART`  | [fastify-multipart](https://github.com/fastify/fastify-multipart)   | `true`  |
 | `FST_RATE_LIMIT` | [fastify-rate-limit](https://github.com/fastify/fastify-rate-limit) | `true`  |
 | `FST_SENSIBLE`   | [fastify-sensible](https://github.com/fastify/fastify-sensible)     | `true`  |
 | `FST_STATIC`     | [fastify-static](https://github.com/fastify/fastify-static)         | `true`  |

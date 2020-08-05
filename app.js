@@ -60,6 +60,14 @@ if (config.plugins.helmet)
     referrerPolicy: {policy: 'no-referrer'}
   })
 
+// Multipart support
+// https://github.com/fastify/fastify-multipart
+if (config.plugins.multipart)
+  fastify.register(require('fastify-multipart'), {
+    addToBody: true,
+    sharedSchemaId: 'MultipartFileType'
+  })
+
 // A low overhead rate limiter for your routes
 // https://github.com/fastify/fastify-rate-limit
 if (config.plugins.rateLimit)
@@ -145,7 +153,7 @@ fastify.addHook('onSend', (request, reply, payload, done) => {
   const err = null
   if (payload && typeof payload === 'string' && payload.length) {
     const pl = payload.length <= 300 ? payload : payload.slice(0, 300) + '...'
-    request.log.debug(`response payload: ${pl}`)
+    request.log.debug(`payload: ${pl}`)
   }
   done(err, payload)
 })
