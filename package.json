@@ -1,6 +1,5 @@
 {
   "name": "fastify-box",
-  "version": "3.0.0",
   "description": "Fastify app template",
   "main": "app.js",
   "scripts": {
@@ -17,6 +16,11 @@
   ],
   "author": "Dmitrii Shchipunov",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goodvir/fastify-box.git"
+  },
+  "homepage": "https://github.com/goodvir/fastify-box.git",
   "dependencies": {
     "dotenv": "^8.2.0",
     "ejs": "^3.1.3",
@@ -35,7 +39,7 @@
     "html-minifier": "^4.0.0",
     "hyperid": "^2.0.5",
     "make-promises-safe": "^5.1.0",
-    "point-of-view": "^4.2.0"
+    "point-of-view": "^4.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4",
