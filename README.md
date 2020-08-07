@@ -69,12 +69,12 @@ note that during start the application tries to access the `.env` file to load t
 
 ### Application settings
 
-| Setting                | Description                                      | Default               |
-|:-----------------------|:-------------------------------------------------|:---------------------:|
-| `NODE_ENV`             | Operating modes `string`                         | `'development'`       |
-| `FST_PORT`             | Listening port `integer`                         | `3000`                |
-| `FST_ADDRESS`          | Listening interface  `string`                    | `'0.0.0.0'`           |
-| `FST_LOG_LEVEL`        | Logging level `string`                           | `'info'` or `'debug'` |
+| Setting                | Description                                      | Default           |
+|:-----------------------|:-------------------------------------------------|:-----------------:|
+| `NODE_ENV`             | Operating modes `string`                         | `unknown`         |
+| `FST_PORT`             | Listening port `integer`                         | `3000`            |
+| `FST_ADDRESS`          | Listening interface  `string`                    | `0.0.0.0`         |
+| `FST_LOG_LEVEL`        | Logging level `string`                           | `info` or `debug` |
 
 ### Additional package settings
 
