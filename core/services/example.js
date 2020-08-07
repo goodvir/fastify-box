@@ -19,15 +19,46 @@
  * подробнее на README.md
  */
 
-// noinspection JSUnusedLocalSymbols
-async function exampleService(fastify, options) {
-  fastify.get('/', async (req, reply) => {
-    reply.view('index.html', {datetime: new Date().toISOString()})
-    return reply
+async function exampleService(fastify) {
+  // Full declaration route
+  // Полное объявление маршрута
+  // https://www.fastify.io/docs/latest/Routes/#full-declaration
+  fastify.route({
+    method: 'GET',
+    url: '/',
+    handler: function (req, reply) {
+      reply.view('main.html', {year: new Date().getFullYear()})
+    }
   })
 
-  fastify.get('/json', (req, reply) => {
-    reply.send({datetime: new Date().toISOString()})
+  // Shorthand declaration route
+  // Сокращенное объявление маршрута
+  // https://www.fastify.io/docs/latest/Routes/#shorthand-declaration
+  const opts = {
+    schema: {
+      response: {
+        200: {
+          type: 'object',
+          additionalProperties: true,
+          properties: {
+            datetime: {type: 'string'}
+          }
+        }
+      }
+    }
+  }
+  fastify.get('/json', opts, (req, reply) => {
+    reply.send({
+      headers: req.raw.headers,
+      datetime: new Date().toISOString()
+    })
+  })
+
+  // Shorthand declaration route without options
+  // Сокращенное объявление маршрута без опций
+  fastify.all('/teapot', (req, reply) => {
+    // noinspection JSUnresolvedFunction
+    reply.imateapot('Custom message')
   })
 }
 

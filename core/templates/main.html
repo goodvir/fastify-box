@@ -1,0 +1,26 @@
+<!-- https://ejs.co -->
+<!--suppress HtmlUnknownTarget, JSUnresolvedLibraryURL -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Example | Fastify-Box</title>
+  <link rel="stylesheet" href="/static/css/main.css" crossorigin="anonymous">
+</head>
+<body>
+<main class="main">
+  <div class="content">
+    <img class="image" src="/static/logo.png" alt="logo">
+    <div class="description">
+      Web application template based on <span>fastify</span>, with customized extensions supported by the community
+    </div>
+    <%- include('buttons.html') %>
+    <div class="footer">© 2019-<%= year %> Fastify-Box</div>
+  </div>
+</main>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>

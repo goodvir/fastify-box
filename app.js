@@ -99,9 +99,12 @@ if (config.plugins.sensible)
 if (config.plugins.static) {
   fastify.register(require('fastify-static'), {
     root: config.path.static,
-    prefix: '/static/',
-    wildcard: false,
+    prefix: '/static',
+    prefixAvoidTrailingSlash: false,
+    wildcard: true,
     index: false,
+    etag: false,
+    maxAge: config.debug ? 0 : '180s',
     list: false
   })
   // noinspection JSCheckFunctionSignatures
