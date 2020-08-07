@@ -32,7 +32,7 @@ mkdir example
 cd example
 ```
 
-Download the [latest release](https://github.com/goodvir/fastify-box/releases/latest) of the `fastify-box` template:
+Download the [latest release](https://github.com/goodvir/fastify-box/releases/latest) of the `fastify-box` template or:
 
 ```sh
 git clone -b master --single-branch https://github.com/goodvir/fastify-box.git .
@@ -68,8 +68,6 @@ note that during start the application tries to access the `.env` file to load t
 | `NODE_ENV`             | Operating modes `string`                         | `'development'`       |
 | `FST_PORT`             | Listening port `integer`                         | `3000`                |
 | `FST_ADDRESS`          | Listening interface  `string`                    | `'0.0.0.0'`           |
-| `FST_MAX_PARAM_LENGTH` | Number of characters in URL parameters `integer` | `300`                 |
-| `FST_PLUGIN_TIMEOUT`   | Plugin load timeout, ms `integer`                | `15000`               |
 | `FST_LOG_LEVEL`        | Logging level `string`                           | `'info'` or `'debug'` |
 
 ### Additional package settings

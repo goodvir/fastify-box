@@ -37,10 +37,15 @@ const config = {
   // Основные настройки сервера
   port: getValue('FST_PORT', 3000),
   address: getValue('FST_ADDRESS', '0.0.0.0'),
-  maxParamLength: getValue('FST_MAX_PARAM_LENGTH', 300),
-  pluginTimeout: getValue('FST_PLUGIN_TIMEOUT', 15000),
   logLevel: getValue('FST_LOG_LEVEL', process.env.NODE_ENV === 'development' ? 'debug' : 'info'),
   debug: process.env.NODE_ENV === 'development',
+
+  // Fastify instance settings
+  // Настройки экземпляра fastify
+  opts: {
+    // Any settings described in the documentation
+    // Любые настройки описанные в документации
+  },
 
   // Plugins settings
   // Настройки плагинов

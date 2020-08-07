@@ -15,17 +15,20 @@ const autoLoad = require('fastify-autoload')
 // Основные настройки сервера
 // https://www.fastify.io/docs/latest/Server
 // noinspection JSUnusedGlobalSymbols
-const opts = {
-  maxParamLength: config.maxParamLength,
-  pluginTimeout: config.pluginTimeout,
-  requestIdHeader: 'x-trace-id',
-  genReqId: require('hyperid')({fixedLength: true, urlSaf: true}),
-  logger: {
-    level: config.logLevel,
-    prettyPrint: config.debug ? {translateTime: 'HH:MM:ss.l'} : false,
-    base: null
-  }
-}
+const opts = Object.assign(
+  {
+    maxParamLength: 300,
+    pluginTimeout: 15000,
+    requestIdHeader: 'X-Trace-Id',
+    genReqId: require('hyperid')({fixedLength: true, urlSaf: true}),
+    logger: {
+      level: config.logLevel,
+      prettyPrint: config.debug ? {translateTime: 'HH:MM:ss.l'} : false,
+      base: null
+    }
+  },
+  config.opts
+)
 
 // Create server
 // Создание сервера
@@ -144,7 +147,7 @@ fastify.decorate('config', config)
 // Adding an identifier to the response header
 // Добавление в заголовки ответа уникального идентификатора
 fastify.addHook('onRequest', (req, reply, done) => {
-  reply.header('x-trace-id', req.id)
+  reply.header('X-Trace-Id', req.id)
   done()
 })
 
@@ -177,206 +180,6 @@ fastify.addHook('onSend', (req, reply, payload, done) => {
   }
   req.log.debug(log, `parsed response`)
   done(null, payload)
-})
-
-// Registering standard JSON schemas for response
-// Регистрация стандартных JSON схем
-fastify.addSchema({
-  $id: 'response',
-  success: {
-    type: 'object',
-    description: 'Success',
-    additionalProperties: true,
-    example: {}
-  },
-  200: {
-    type: 'object',
-    description: 'Success',
-    additionalProperties: true,
-    properties: {
-      statusCode: {
-        type: 'integer',
-        default: 200,
-        example: 200
-      },
-      message: {
-        type: 'string',
-        default: 'OK',
-        example: 'OK'
-      }
-    }
-  },
-  201: {
-    type: 'object',
-    description: 'Created',
-    additionalProperties: true,
-    properties: {
-      statusCode: {
-        type: 'integer',
-        default: 201,
-        example: 201
-      },
-      message: {
-        type: 'string',
-        default: 'Created',
-        example: 'Created'
-      }
-    }
-  },
-  202: {
-    type: 'object',
-    description: 'Accepted',
-    additionalProperties: true,
-    properties: {
-      statusCode: {
-        type: 'integer',
-        default: 202,
-        example: 202
-      },
-      message: {
-        type: 'string',
-        default: 'Accepted',
-        example: 'Accepted'
-      }
-    }
-  },
-  204: {
-    type: 'null',
-    description: 'No Content',
-    example: 'No Content'
-  },
-  400: {
-    type: 'object',
-    description: 'Bad Request',
-    additionalProperties: true,
-    properties: {
-      statusCode: {
-        type: 'integer',
-        default: 400,
-        example: 400
-      },
-      error: {
-        type: 'string',
-        default: 'Bad Request',
-        example: 'Bad Request'
-      },
-      message: {
-        type: 'string',
-        default: 'Bad Request',
-        example: 'Bad Request'
-      }
-    }
-  },
-  401: {
-    type: 'object',
-    description: 'Unauthorized',
-    additionalProperties: true,
-    properties: {
-      statusCode: {
-        type: 'integer',
-        default: 401,
-        example: 401
-      },
-      error: {
-        type: 'string',
-        default: 'Unauthorized',
-        example: 'Unauthorized'
-      },
-      message: {
-        type: 'string',
-        default: 'Unauthorized',
-        example: 'Unauthorized'
-      }
-    }
-  },
-  403: {
-    type: 'object',
-    description: 'Forbidden',
-    additionalProperties: true,
-    properties: {
-      statusCode: {
-        type: 'integer',
-        default: 403,
-        example: 403
-      },
-      error: {
-        type: 'string',
-        default: 'Forbidden',
-        example: 'Forbidden'
-      },
-      message: {
-        type: 'string',
-        default: 'Forbidden',
-        example: 'Forbidden'
-      }
-    }
-  },
-  404: {
-    type: 'object',
-    description: 'Not Found',
-    additionalProperties: true,
-    properties: {
-      statusCode: {
-        type: 'integer',
-        default: 404,
-        example: 404
-      },
-      error: {
-        type: 'string',
-        default: 'Not Found',
-        example: 'Not Found'
-      },
-      message: {
-        type: 'string',
-        default: 'Not Found',
-        example: 'Not Found'
-      }
-    }
-  },
-  422: {
-    type: 'object',
-    description: 'Unprocessable Entity',
-    additionalProperties: true,
-    properties: {
-      statusCode: {
-        type: 'integer',
-        default: 422,
-        example: 422
-      },
-      error: {
-        type: 'string',
-        default: 'Unprocessable Entity',
-        example: 'Unprocessable Entity'
-      },
-      message: {
-        type: 'string',
-        default: 'Unprocessable Entity',
-        example: 'Unprocessable Entity'
-      }
-    }
-  },
-  500: {
-    type: 'object',
-    description: 'Internal Server Error',
-    additionalProperties: true,
-    properties: {
-      statusCode: {
-        type: 'integer',
-        default: 500,
-        example: 500
-      },
-      error: {
-        type: 'string',
-        default: 'Internal Server Error',
-        example: 'Internal Server Error'
-      },
-      message: {
-        type: 'string',
-        default: 'Internal Server Error',
-        example: 'Internal Server Error'
-      }
-    }
-  }
 })
 
 // Loading your custom plugins [./core/plugins]
