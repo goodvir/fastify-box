@@ -2,25 +2,19 @@
 
 /*
  * Application launch file
- *
- * Loading order of your plugins:
- *
- *      └── plugins (from the Fastify ecosystem)
- *      └── your plugins (your custom plugins)
- *      └── decorators
- *      └── hooks
- *      └── your services
+ * Файл запуска приложения
  *
  * Fastify: https://www.fastify.io
  * Extend your server: https://www.fastify.io/ecosystem
- *
  */
 
 const config = require('./config')
 const autoLoad = require('fastify-autoload')
 
 // Basic server settings
+// Основные настройки сервера
 // https://www.fastify.io/docs/latest/Server
+// noinspection JSUnusedGlobalSymbols
 const opts = {
   maxParamLength: config.maxParamLength,
   pluginTimeout: config.pluginTimeout,
@@ -28,32 +22,37 @@ const opts = {
   genReqId: require('hyperid')({fixedLength: true, urlSaf: true}),
   logger: {
     level: config.logLevel,
-    prettyPrint: config.debug,
+    prettyPrint: config.debug ? {translateTime: 'HH:MM:ss.l'} : false,
     base: null
   }
 }
 
 // Create server
+// Создание сервера
 const fastify = require('fastify')(opts)
 require('make-promises-safe')
 
-// Loading plugins from the Fastify ecosystem
 // To have accepts in your request object.
+// Плагин управления заголовками запроса
 // https://github.com/fastify/fastify-accepts
 if (config.plugins.accepts) fastify.register(require('fastify-accepts'))
 
 // Supports gzip, deflate
+// Поддержка gzip сжатия ответов
 // https://github.com/fastify/fastify-compress
 if (config.plugins.compress)
   fastify.register(require('fastify-compress'), {
+    global: true,
     encodings: ['gzip', 'deflate']
   })
 
 // Enables the use of CORS
+// Поддержка CORS запросов
 // https://github.com/fastify/fastify-cors
 if (config.plugins.cors) fastify.register(require('fastify-cors'))
 
 // Important security headers
+// Настройка заголовков безопасности
 // https://github.com/fastify/fastify-helmet
 if (config.plugins.helmet)
   fastify.register(require('fastify-helmet'), {
@@ -61,6 +60,7 @@ if (config.plugins.helmet)
   })
 
 // Multipart support
+// Поддержка обработки HTML форм
 // https://github.com/fastify/fastify-multipart
 if (config.plugins.multipart)
   fastify.register(require('fastify-multipart'), {
@@ -69,19 +69,21 @@ if (config.plugins.multipart)
   })
 
 // A low overhead rate limiter for your routes
+// Ограничение количества запросов для пользователя
 // https://github.com/fastify/fastify-rate-limit
 if (config.plugins.rateLimit)
   fastify.register(require('fastify-rate-limit'), {
     max: 300
   })
 
-// TODO Wait for plugin update for fastify version >=3.0.0
 // Request-scoped storage, based on AsyncLocalStorage
+// Создание хранилища привязанного к контексту запроса
 // https://github.com/fastify/fastify-request-context
-// const {fastifyRequestContextPlugin} = require('fastify-request-context')
-// fastify.register(fastifyRequestContextPlugin)
+const {fastifyRequestContextPlugin} = require('fastify-request-context')
+fastify.register(fastifyRequestContextPlugin)
 
 // Adds some useful decorators such as http errors and assertions
+// Полезные декораторы HTTP ошибок
 // https://github.com/fastify/fastify-sensible
 if (config.plugins.sensible)
   fastify.register(require('fastify-sensible'), {
@@ -89,6 +91,7 @@ if (config.plugins.sensible)
   })
 
 // Plugin for serving static files as fast as possible
+// Обслуживание файлов из папки статики
 // https://github.com/fastify/fastify-static
 if (config.plugins.static) {
   fastify.register(require('fastify-static'), {
@@ -110,6 +113,7 @@ if (config.plugins.static) {
 }
 
 // Templates rendering plugin support
+// Настройка плагина ejs для шаблонов
 // https://github.com/fastify/point-of-view
 if (config.plugins.render) {
   const minifier = require('html-minifier')
@@ -134,33 +138,49 @@ if (config.plugins.render) {
 }
 
 // Registering a decorator to access settings
+// Регистрация декоратора конфигурации
 fastify.decorate('config', config)
 
 // Adding an identifier to the response header
+// Добавление в заголовки ответа уникального идентификатора
 fastify.addHook('onRequest', (req, reply, done) => {
   reply.header('x-trace-id', req.id)
   done()
 })
 
 // Logging the content of requests
+// Печать параметров запроса в режиме записи логов DEBUG
 fastify.addHook('preHandler', (req, reply, done) => {
+  const log = {}
+  if (req.raw.headers && Object.keys(req.raw.headers).length) log['headers'] = req.raw.headers
   ;['params', 'query', 'body'].forEach((x) => {
-    if (req[x] && Object.keys(req[x]).length) req.log.debug(`request ${x}: ${JSON.stringify(req[x])}`)
+    if (req[x] && Object.keys(req[x]).length) log[x] = req[x]
   })
+  req.log.debug(log, `parsed request`)
   done()
 })
 
 // Logging the content of response
+// Печать параметров ответа в режиме записи логов DEBUG
 fastify.addHook('onSend', (req, reply, payload, done) => {
-  const err = null
-  if (payload && typeof payload === 'string' && payload.length) {
-    const pl = payload.length <= 300 ? payload : payload.slice(0, 300) + '...'
-    req.log.debug(`payload: ${pl}`)
+  const log = {}
+  log['headers'] = reply.getHeaders()
+  log['payload'] = !payload ? null : typeof payload
+  if (!!payload && typeof payload === 'string') {
+    if (payload.length <= 300) {
+      try {
+        log['payload'] = JSON.parse(payload)
+      } catch (ex) {
+        log['payload'] = payload
+      }
+    } else log['payload'] = payload.slice(0, 300) + '...'
   }
-  done(err, payload)
+  req.log.debug(log, `parsed response`)
+  done(null, payload)
 })
 
 // Registering standard JSON schemas for response
+// Регистрация стандартных JSON схем
 fastify.addSchema({
   $id: 'response',
   success: {
@@ -360,18 +380,21 @@ fastify.addSchema({
 })
 
 // Loading your custom plugins [./core/plugins]
+// Загрузка пользовательских плагинов
 fastify.register(autoLoad, {
   dir: config.path.plugins,
   ignorePattern: /^_.*/
 })
 
 // Loading your custom services [./core/services]
+// Загрузка пользовательских сервисов
 fastify.register(autoLoad, {
   dir: config.path.services,
   ignorePattern: /^_.*/
 })
 
 // Start server
+// Запуск сервера
 fastify.listen(Number(config.port), String(config.address), function (err) {
   if (err) {
     // noinspection JSUnresolvedFunction

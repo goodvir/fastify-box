@@ -1,14 +1,23 @@
 'use strict'
 
 /*
+ * ENG
  * Application settings
  *
  * Once launched, the configuration is available
  * from the fastify.config decorator
  *
  * Settings can be managed through environment
- * variables or the .env file,
- * more details in README.md
+ * variables or the .env file, more details in README.md
+ *
+ * RUS
+ * Настройки приложения
+ *
+ * После запуска конфигурация доступна
+ * из декоратора fastify.config
+ *
+ * Настройками можно управлять с помощью переменной среды
+ * или файла .env, более подробная информация в README.md
  */
 
 require('dotenv').config()
@@ -25,6 +34,7 @@ const getValue = (name, defaultValue, boolean = false) => {
 
 const config = {
   // Basic settings
+  // Основные настройки сервера
   port: getValue('FST_PORT', 3000),
   address: getValue('FST_ADDRESS', '0.0.0.0'),
   maxParamLength: getValue('FST_MAX_PARAM_LENGTH', 300),
@@ -33,6 +43,7 @@ const config = {
   debug: process.env.NODE_ENV === 'development',
 
   // Plugins settings
+  // Настройки плагинов
   plugins: {
     accepts: getValue('FST_ACCEPTS', true, true),
     compress: getValue('FST_COMPRESS', false, true),
@@ -46,6 +57,7 @@ const config = {
   },
 
   // Path settings
+  // Настройки директорий
   path: {
     basedir: __dirname,
     core: path.join(__dirname, 'core'),
@@ -53,6 +65,14 @@ const config = {
     services: path.join(__dirname, 'core', 'services'),
     static: path.join(__dirname, 'core', 'static'),
     templates: path.join(__dirname, 'core', 'templates')
+  },
+
+  // Custom application settings
+  // Пользовательские настройки приложения
+  custom: {
+    // For example, a secret encryption key
+    // Например секретный ключ шифрования
+    secretKey: getValue('FST_SECRET_KEY', 'you-will-never-guess')
   }
 }
 
