@@ -10,9 +10,15 @@
 <a href="https://github.com/goodvir/fastify-box/blob/master/LICENSE">
 <img src="https://badgen.net/github/license/goodvir/fastify-box" alt="license">
 </a>
+<a href="https://github.com/goodvir/fastify-box/commits">
 <img src="https://badgen.net/github/last-commit/goodvir/fastify-box" alt="last commit">
+</a>
+<a href="https://github.com/goodvir/fastify-box/commits">
 <img src="https://badgen.net/github/commits/goodvir/fastify-box" alt="commits">
+</a>
+<a href="https://github.com/goodvir/fastify-box/branches">
 <img src="https://badgen.net/github/branches/goodvir/fastify-box" alt="branches">
+</a>
 </p>
 <br>
 
