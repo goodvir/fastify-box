@@ -78,17 +78,18 @@ note that during start the application tries to access the `.env` file to load t
 
 ### Additional package settings
 
-| Setting          | Description                                                         | Default |
-|:-----------------|:--------------------------------------------------------------------|:-------:|
-| `FST_ACCEPTS`    | [fastify-accepts](https://github.com/fastify/fastify-accepts)       | `true`  |
-| `FST_COMPRESS`   | [fastify-compress](https://github.com/fastify/fastify-compress)     | `false` |
-| `FST_CORS`       | [fastify-cors](https://github.com/fastify/fastify-cors)             | `false` |
-| `FST_HELMET`     | [fastify-helmet](https://github.com/fastify/fastify-helmet)         | `true`  |
-| `FST_MULTIPART`  | [fastify-multipart](https://github.com/fastify/fastify-multipart)   | `true`  |
-| `FST_RATE_LIMIT` | [fastify-rate-limit](https://github.com/fastify/fastify-rate-limit) | `true`  |
-| `FST_SENSIBLE`   | [fastify-sensible](https://github.com/fastify/fastify-sensible)     | `true`  |
-| `FST_STATIC`     | [fastify-static](https://github.com/fastify/fastify-static)         | `true`  |
-| `FST_RENDER`     | [point-of-view](https://github.com/fastify/point-of-view)           | `true`  |
+| Setting          | Description                                                                   | Default |
+|:-----------------|:------------------------------------------------------------------------------|:-------:|
+| `FST_ACCEPTS`    | [fastify-accepts](https://github.com/fastify/fastify-accepts)                 | `true`  |
+| `FST_COMPRESS`   | [fastify-compress](https://github.com/fastify/fastify-compress)               | `false` |
+| `FST_CORS`       | [fastify-cors](https://github.com/fastify/fastify-cors)                       | `false` |
+| `FST_HELMET`     | [fastify-helmet](https://github.com/fastify/fastify-helmet)                   | `true`  |
+| `FST_MULTIPART`  | [fastify-multipart](https://github.com/fastify/fastify-multipart)             | `true`  |
+| `FST_RATE_LIMIT` | [fastify-rate-limit](https://github.com/fastify/fastify-rate-limit)           | `true`  |
+| `FST_CONTEXT`    | [fastify-request-context](https://github.com/fastify/fastify-request-context) | `true`  |
+| `FST_SENSIBLE`   | [fastify-sensible](https://github.com/fastify/fastify-sensible)               | `true`  |
+| `FST_STATIC`     | [fastify-static](https://github.com/fastify/fastify-static)                   | `true`  |
+| `FST_RENDER`     | [point-of-view](https://github.com/fastify/point-of-view)                     | `true`  |
 
 ## Documentation
 

@@ -45,6 +45,7 @@ const config = {
   opts: {
     // Any settings described in the documentation
     // Любые настройки описанные в документации
+    // https://www.fastify.io/docs/latest/Server
   },
 
   // Plugins settings
@@ -56,6 +57,7 @@ const config = {
     helmet: getValue('FST_HELMET', true, true),
     multipart: getValue('FST_MULTIPART', true, true),
     rateLimit: getValue('FST_RATE_LIMIT', true, true),
+    context: getValue('FST_CONTEXT', true, true),
     sensible: getValue('FST_SENSIBLE', true, true),
     static: getValue('FST_STATIC', true, true),
     render: getValue('FST_RENDER', true, true)

@@ -82,8 +82,10 @@ if (config.plugins.rateLimit)
 // Request-scoped storage, based on AsyncLocalStorage
 // Создание хранилища привязанного к контексту запроса
 // https://github.com/fastify/fastify-request-context
-const {fastifyRequestContextPlugin} = require('fastify-request-context')
-fastify.register(fastifyRequestContextPlugin)
+if (config.plugins.context) {
+  const {fastifyRequestContextPlugin} = require('fastify-request-context')
+  fastify.register(fastifyRequestContextPlugin)
+}
 
 // Adds some useful decorators such as http errors and assertions
 // Полезные декораторы HTTP ошибок
