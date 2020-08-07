@@ -98,10 +98,12 @@ if (config.plugins.static) {
     index: false,
     list: false
   })
+  // noinspection JSCheckFunctionSignatures
   fastify.route({
     method: 'GET',
     url: '/favicon.ico',
-    handler: function (request, reply) {
+    schema: {hide: true},
+    handler: function (req, reply) {
       reply.sendFile('favicon.ico')
     }
   })
@@ -135,25 +137,25 @@ if (config.plugins.render) {
 fastify.decorate('config', config)
 
 // Adding an identifier to the response header
-fastify.addHook('onRequest', (request, reply, done) => {
-  reply.header('x-trace-id', request.id)
+fastify.addHook('onRequest', (req, reply, done) => {
+  reply.header('x-trace-id', req.id)
   done()
 })
 
 // Logging the content of requests
-fastify.addHook('preHandler', (request, reply, done) => {
+fastify.addHook('preHandler', (req, reply, done) => {
   ;['params', 'query', 'body'].forEach((x) => {
-    if (request[x] && Object.keys(request[x]).length) request.log.debug(`request ${x}: ${JSON.stringify(request[x])}`)
+    if (req[x] && Object.keys(req[x]).length) req.log.debug(`request ${x}: ${JSON.stringify(req[x])}`)
   })
   done()
 })
 
 // Logging the content of response
-fastify.addHook('onSend', (request, reply, payload, done) => {
+fastify.addHook('onSend', (req, reply, payload, done) => {
   const err = null
   if (payload && typeof payload === 'string' && payload.length) {
     const pl = payload.length <= 300 ? payload : payload.slice(0, 300) + '...'
-    request.log.debug(`payload: ${pl}`)
+    req.log.debug(`payload: ${pl}`)
   }
   done(err, payload)
 })
@@ -360,14 +362,12 @@ fastify.addSchema({
 // Loading your custom plugins [./core/plugins]
 fastify.register(autoLoad, {
   dir: config.path.plugins,
-  options: Object.assign({}),
   ignorePattern: /^_.*/
 })
 
 // Loading your custom services [./core/services]
 fastify.register(autoLoad, {
   dir: config.path.services,
-  options: Object.assign({}),
   ignorePattern: /^_.*/
 })
 

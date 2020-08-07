@@ -13,12 +13,12 @@
 
 // noinspection JSUnusedLocalSymbols
 async function exampleService(fastify, options) {
-  fastify.get('/', async (request, reply) => {
+  fastify.get('/', async (req, reply) => {
     reply.view('index.html', {datetime: new Date().toISOString()})
     return reply
   })
 
-  fastify.get('/json', (request, reply) => {
+  fastify.get('/json', (req, reply) => {
     reply.send({datetime: new Date().toISOString()})
   })
 }

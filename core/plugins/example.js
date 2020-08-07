@@ -10,7 +10,7 @@
  * more details in README.md
  */
 
-const fastifyPlugin = require('fastify-plugin')
+const fp = require('fastify-plugin')
 
 // noinspection JSUnusedLocalSymbols
 async function examplePlugins(fastify, options) {
@@ -21,4 +21,4 @@ async function examplePlugins(fastify, options) {
 
 // Wrapping a plugin function with fastify-plugin exposes the decorators
 // and hooks, declared inside the plugin to the parent scope.
-module.exports = fastifyPlugin(examplePlugins)
+module.exports = fp(examplePlugins)
