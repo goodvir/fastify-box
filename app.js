@@ -35,7 +35,7 @@ const opts = Object.assign(
 const fastify = require('fastify')(opts)
 require('make-promises-safe')
 
-// To have accepts in your request object.
+// To have accepts in your request object
 // Плагин управления заголовками запроса
 // https://github.com/fastify/fastify-accepts
 if (config.plugins.accepts) fastify.register(require('fastify-accepts'))
@@ -68,7 +68,7 @@ if (config.plugins.helmet)
 if (config.plugins.multipart)
   fastify.register(require('fastify-multipart'), {
     addToBody: true,
-    sharedSchemaId: 'MultipartFileType'
+    sharedSchemaId: 'multipart'
   })
 
 // A low overhead rate limiter for your routes
@@ -157,7 +157,7 @@ fastify.addHook('onRequest', (req, reply, done) => {
 })
 
 // Logging the content of requests
-// Печать параметров запроса в режиме записи логов DEBUG
+// Печать параметров запроса в режиме FST_LOG_LEVEL='debug'
 fastify.addHook('preHandler', (req, reply, done) => {
   const log = {}
   if (req.raw.headers && Object.keys(req.raw.headers).length) log['headers'] = req.raw.headers
@@ -169,7 +169,7 @@ fastify.addHook('preHandler', (req, reply, done) => {
 })
 
 // Logging the content of response
-// Печать параметров ответа в режиме записи логов DEBUG
+// Печать параметров ответа в режиме FST_LOG_LEVEL='debug'
 fastify.addHook('onSend', (req, reply, payload, done) => {
   const log = {}
   log['headers'] = reply.getHeaders()
