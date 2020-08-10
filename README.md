@@ -98,23 +98,23 @@ The settings from the file `config.js` are available in the decorator `fastify.c
 ### Directory content
 
 ```
-├── core/               #
-│   ├── plugins/        #
-│   ├── services/       #
-│   ├── static/         #
-│   └── templates/      #
-├── .editorconfig       #
-├── .env                #
-├── .gitattributes      #
-├── .gitignore          #
-├── .prettierignore     #
-├── .prettiererrc       #
-├── app.js              #
-├── config.js           # 
-├── LICENSE             - MIT license
+├── core/
+│   ├── plugins/        - registering global plugins
+│   ├── services/       - registering services
+│   ├── static/         - files available at URL "/static/**/*"
+│   └── templates/      - page templates
+├── .editorconfig       - https://editorconfig.org
+├── .env                - variable environment settings
+├── .gitattributes
+├── .gitignore
+├── .prettierignore
+├── .prettiererrc       - https://prettier.io
+├── app.js              - application launch file
+├── config.js           - application settings 
+├── LICENSE
 ├── package.json        - package definition and dependencies
 ├── package-lock.json   - pinned dependency versions
-└── README.md           - documentation            
+└── README.md            
 ```
 
 ### Pre-installed plugins
