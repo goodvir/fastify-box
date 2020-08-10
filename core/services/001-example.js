@@ -60,6 +60,13 @@ async function exampleService(fastify) {
     // noinspection JSUnresolvedFunction
     reply.imateapot('Custom message')
   })
+
+  // An example of using the context
+  // Пример использования контекста
+  fastify.get('/user', (req, reply) => {
+    const user = req.requestContext.get('user')
+    reply.code(200).send(user)
+  })
 }
 
 module.exports = exampleService

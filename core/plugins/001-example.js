@@ -21,9 +21,18 @@ const fp = require('fastify-plugin')
 
 // noinspection JSUnusedLocalSymbols
 async function examplePlugins(fastify, options) {
+  // Example of registering a third party plugin
+  // Пример регистрации стороннего плагина
   // fastify.register(require('fastify-mongodb'), {
   //   url: 'mongodb://localhost:27017/test_database'
   // })
+
+  // An example of using the context
+  // Пример использования контекста
+  fastify.addHook('onRequest', (req, reply, done) => {
+    req.requestContext.set('user', {id: '000000'})
+    done()
+  })
 }
 
 // Wrapping a plugin function with fastify-plugin exposes the decorators
