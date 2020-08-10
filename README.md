@@ -132,7 +132,10 @@ Plugin enabled by default, to deactivate it set: `FST_ACCEPTS = false`.
 
 **Example:**
 ```js
-console.log('coming soon')
+fastify.get('/', (req, reply) => {
+  const accepts = req.accepts()
+  reply.code(200).send(accepts)
+})
 ```
 
 #### fastify-compress
@@ -194,7 +197,22 @@ Plugin enabled by default, to deactivate it set: `FST_MULTIPART=false`.
 
 **Example:**
 ```js
-console.log('coming soon')
+fastify.get('/', (req, reply) => {
+  console.log(req.body)
+  // This will print out:
+  // {
+  //   myStringField: 'example',
+  //   anotherOne: 'example',
+  //   myFilenameField: [{
+  //     data: <Buffer>,
+  //     encoding: '7bit',
+  //     filename: 'README.md',
+  //     limit: false,
+  //     mimetype: 'text/markdown'
+  //   }]
+  // }
+  reply.code(200).send()
+})
 ```
 
 #### fastify-rate-limit
@@ -222,7 +240,15 @@ Plugin enabled by default, to deactivate it set: `FST_CONTEXT=false`.
 
 **Example:**
 ```js
-console.log('coming soon')
+fastify.addHook('onRequest', (req, reply, done) => {
+  req.requestContext.set('user', {id: '000000'})
+  done()
+})
+
+fastify.get('/', (req, reply) => {
+  const user = req.requestContext.get('user')
+  reply.code(200).send(user)
+})
 ```
 
 #### fastify-sensible
@@ -242,7 +268,13 @@ Plugin enabled by default, to deactivate it set: `FST_SENSIBLE=false`.
 
 **Example:**
 ```js
-console.log('coming soon')
+fastify.get('/', (req, reply) => {
+  reply.notFound()
+})
+
+fastify.get('/async', async (req, reply) => {
+  throw fastify.httpErrors.notFound()
+})
 ```
 
 #### fastify-static
@@ -283,7 +315,10 @@ _By default, URLs for all files located in `./core/static/**/*` are registered._
 
 **Example:**
 ```js
-console.log('coming soon')
+// Serving a file from a different root location
+fastify.get('/root', (req, reply) => {
+  return reply.sendFile('index.html', path.join(__dirname, 'build'))
+})
 ```
 
 #### point-of-view
@@ -308,7 +343,15 @@ _In production mode, templates processed by `html-minifier`._
 
 **Example:**
 ```js
-console.log('coming soon')
+fastify.get('/', (req, reply) => {
+  reply.view('main.html', {text: 'text'})
+})
+
+// With async handler be sure to return the result of reply.view
+fastify.get('/', async (req, reply) => {
+  const t = await something()
+  return reply.view('main.html', {text: 'text'})
+})
 ```
 
 ## License
