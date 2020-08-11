@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/goodvir/fastify-box/issues"
   },
-  "homepage": "https://github.com/goodvir/fastify-box.git",
+  "homepage": "https://github.com/goodvir/fastify-box#readme",
   "engines": {
     "node": ">=10"
   },
@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.4",
-    "npm-check-updates": "^7.0.4",
+    "npm-check-updates": "^7.1.0",
     "pino-pretty": "^4.1.0",
     "prettier": "2.0.5"
   },

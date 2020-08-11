@@ -22,7 +22,7 @@
 </p>
 <br>
 
-[Fastify-Box](https://github.com/goodvir/fastify-box)
+[Fastify-Box](https://github.com/goodvir/fastify-box#readme)
 web application template based on `fastify`, with customized extensions supported by the community.
 
 [Fastify](https://www.fastify.io) is a web framework highly focused on providing the best developer experience 
