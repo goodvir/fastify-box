@@ -63,8 +63,12 @@ async function exampleService(fastify) {
 
   // An example of using the context
   // Пример использования контекста
-  fastify.get('/user', (req, reply) => {
-    const user = req.requestContext.get('user')
+  fastify.get('/user', function (req, reply) {
+    const user = {
+      reqGetUser: req.requestContext.get('user'),
+      thisGetUser: this.requestContext.get('user'),
+      fastifyGetUser: fastify.requestContext.get('user')
+    }
     reply.code(200).send(user)
   })
 }

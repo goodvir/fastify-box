@@ -245,8 +245,12 @@ fastify.addHook('onRequest', (req, reply, done) => {
   done()
 })
 
-fastify.get('/', (req, reply) => {
-  const user = req.requestContext.get('user')
+fastify.get('/', function (req, reply) {
+  const user = {
+    reqGetUser: req.requestContext.get('user'),
+    thisGetUser: this.requestContext.get('user'),
+    fastifyGetUser: fastify.requestContext.get('user')
+  }
   reply.code(200).send(user)
 })
 ```
