@@ -22,7 +22,7 @@
 </p>
 <br>
 
-[Fastify-Box](https://github.com/goodvir/fastify-box)
+[Fastify-Box](https://github.com/goodvir/fastify-box#readme)
 web application template based on `fastify`, with customized extensions supported by the community.
 
 [Fastify](https://www.fastify.io) is a web framework highly focused on providing the best developer experience 
@@ -245,8 +245,12 @@ fastify.addHook('onRequest', (req, reply, done) => {
   done()
 })
 
-fastify.get('/', (req, reply) => {
-  const user = req.requestContext.get('user')
+fastify.get('/', function (req, reply) {
+  const user = {
+    reqGetUser: req.requestContext.get('user'),
+    thisGetUser: this.requestContext.get('user'),
+    fastifyGetUser: fastify.requestContext.get('user')
+  }
   reply.code(200).send(user)
 })
 ```
