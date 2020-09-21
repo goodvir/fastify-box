@@ -177,11 +177,11 @@ fastify.addHook('onSend', (req, reply, payload, done) => {
   if (!!payload && typeof payload === 'string') {
     if (payload.length <= 300) {
       try {
-        log['payload'] = JSON.parse(payload)
+        log['payload'] = JSON.parse(payload.toString())
       } catch (ex) {
         log['payload'] = payload
       }
-    } else log['payload'] = payload.slice(0, 300) + '...'
+    } else log['payload'] = payload.toString().slice(0, 300) + '...'
   }
   req.log.debug(log, `parsed response`)
   done(null, payload)

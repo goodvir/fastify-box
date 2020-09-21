@@ -32,14 +32,14 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
-    "fastify": "^3.3.0",
+    "fastify": "^3.4.1",
     "fastify-accepts": "^2.0.1",
-    "fastify-autoload": "^3.0.8",
+    "fastify-autoload": "^3.1.0",
     "fastify-compress": "^3.3.0",
     "fastify-cors": "^4.1.0",
-    "fastify-helmet": "^5.0.1",
-    "fastify-multipart": "^3.1.0",
-    "fastify-plugin": "^2.3.3",
+    "fastify-helmet": "^5.0.3",
+    "fastify-multipart": "^3.2.0",
+    "fastify-plugin": "^2.3.4",
     "fastify-rate-limit": "^4.0.2",
     "fastify-request-context": "^2.1.1",
     "fastify-sensible": "^3.0.1",
@@ -47,13 +47,13 @@
     "html-minifier": "^4.0.0",
     "hyperid": "^2.0.5",
     "make-promises-safe": "^5.1.0",
-    "point-of-view": "^4.4.0"
+    "point-of-view": "^4.5.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.4",
-    "npm-check-updates": "^8.0.1",
-    "pino-pretty": "^4.2.0",
-    "prettier": "2.1.1"
+    "npm-check-updates": "^9.0.1",
+    "pino-pretty": "^4.2.1",
+    "prettier": "2.1.2"
   },
   "nodemonConfig": {
     "ext": "js",
