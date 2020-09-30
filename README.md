@@ -78,6 +78,14 @@ The settings from the file `config.js` are available in the decorator `fastify.c
 | `FST_ADDRESS`          | Listening interface  `string`                    | `0.0.0.0`         |
 | `FST_LOG_LEVEL`        | Logging level `string`                           | `info` or `debug` |
 
+### Information settings
+
+| Setting                | Description                                          | Default                    |
+|:-----------------------|:-----------------------------------------------------|:--------------------------:|
+| `FST_APP_NAME`         | Name of the running application instance `string`    | `instance`                 |
+| `FST_APP_RELEASE`      | Version of the running application instance `string` | `latest`                   |
+| `FST_APP_LAUNCH`       | Application start time `string`                      | `new Date().toISOString()` |
+
 ### Additional package settings
 
 | Setting          | Description                                         | Default |

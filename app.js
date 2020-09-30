@@ -25,6 +25,14 @@ const opts = Object.assign(
       level: config.logLevel,
       prettyPrint: config.debug ? {translateTime: 'HH:MM:ss.l'} : false,
       base: null
+    },
+    ajv: {
+      // https://ajv.js.org/#options
+      customOptions: {
+        removeAdditional: false,
+        allErrors: true,
+        nullable: true
+      }
     }
   },
   config.opts
@@ -158,7 +166,7 @@ fastify.addHook('onRequest', (req, reply, done) => {
 
 // Logging the content of requests
 // Печать параметров запроса в режиме FST_LOG_LEVEL='debug'
-fastify.addHook('preHandler', (req, reply, done) => {
+fastify.addHook('preValidation', (req, reply, done) => {
   const log = {}
   if (req.raw.headers && Object.keys(req.raw.headers).length) log['headers'] = req.raw.headers
   ;['params', 'query', 'body'].forEach((x) => {
@@ -203,10 +211,9 @@ fastify.register(autoLoad, {
 
 // Start server
 // Запуск сервера
-fastify.listen(Number(config.port), String(config.address), function (err) {
-  if (err) {
-    // noinspection JSUnresolvedFunction
-    fastify.log.error(err)
+fastify.listen(Number(config.port), String(config.address), function (e) {
+  if (e) {
+    console.log(e)
     process.exit(1)
   }
 })
