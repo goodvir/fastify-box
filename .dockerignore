@@ -1,0 +1,14 @@
+.git
+.idea
+.vscode
+kubernetes
+node_modules
+.*
+Dockerfile
+Jenkinsfile*
+LICENSE
+*.md
+
+core/plugins/**/_*.js
+core/services/**/_*.js
+*.env.json

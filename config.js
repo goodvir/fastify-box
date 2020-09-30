@@ -23,7 +23,10 @@
 require('dotenv').config()
 const path = require('path')
 
-const getValue = (name, defaultValue, boolean = false) => {
+// noinspection JSValidateTypes
+process.env.UV_THREADPOOL_SIZE = 10
+
+const getValue = (name, defaultValue = null, boolean = false) => {
   const bool = (x) => {
     const param = ['false', '0', 'none', 'null', '']
     return param.includes(String(x).toLowerCase()) ? false : Boolean(x)
@@ -35,7 +38,7 @@ const getValue = (name, defaultValue, boolean = false) => {
 const config = {
   // Basic settings
   // Основные настройки сервера
-  port: getValue('FST_PORT', 3000),
+  port: getValue('FST_PORT', 8080),
   address: getValue('FST_ADDRESS', '0.0.0.0'),
   logLevel: getValue('FST_LOG_LEVEL', process.env.NODE_ENV === 'development' ? 'debug' : 'info'),
   debug: process.env.NODE_ENV === 'development',
@@ -72,6 +75,14 @@ const config = {
     services: path.join(__dirname, 'core', 'services'),
     static: path.join(__dirname, 'core', 'static'),
     templates: path.join(__dirname, 'core', 'templates')
+  },
+
+  // Application Information
+  // Информация о приложении
+  app: {
+    name: getValue('FST_APP_NAME', 'instance'),
+    release: getValue('FST_APP_RELEASE', 'latest'),
+    launch: getValue('FST_APP_LAUNCH', new Date().toISOString())
   },
 
   // Custom application settings
