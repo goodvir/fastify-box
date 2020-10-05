@@ -195,31 +195,13 @@ Documentation: https://github.com/fastify/fastify-multipart
 Multipart support.  
 Plugin enabled by default, to deactivate it set: `FST_MULTIPART=false`.
 
-**Settings:**
-```json
-{
-  "addToBody": true,
-  "sharedSchemaId": "multipart"
-}
-```
-
 **Example:**
 ```js
-fastify.get('/', (req, reply) => {
-  console.log(req.body)
-  // This will print out:
-  // {
-  //   myStringField: 'example',
-  //   anotherOne: 'example',
-  //   myFilenameField: [{
-  //     data: <Buffer>,
-  //     encoding: '7bit',
-  //     filename: 'README.md',
-  //     limit: false,
-  //     mimetype: 'text/markdown'
-  //   }]
-  // }
-  reply.code(200).send()
+fastify.post('/', async function (req, reply) {
+  const options = {limits: {fileSize: 1000}}
+  const data = await req.file(options)
+  await pump(data.file, fs.createWriteStream(data.filename))
+  reply.send()
 })
 ```
 

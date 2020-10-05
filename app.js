@@ -73,11 +73,7 @@ if (config.plugins.helmet)
 // Multipart support
 // Поддержка обработки HTML форм
 // https://github.com/fastify/fastify-multipart
-if (config.plugins.multipart)
-  fastify.register(require('fastify-multipart'), {
-    addToBody: true,
-    sharedSchemaId: 'multipart'
-  })
+if (config.plugins.multipart) fastify.register(require('fastify-multipart'))
 
 // A low overhead rate limiter for your routes
 // Ограничение количества запросов для пользователя
