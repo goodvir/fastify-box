@@ -116,4 +116,5 @@ dist
 
 .idea/
 .vscode/
+storage/
 *.env.json

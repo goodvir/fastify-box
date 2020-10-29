@@ -183,7 +183,8 @@ Plugin enabled by default, to deactivate it set: `FST_HELMET=false`.
 **Settings:**
 ```json
 {
-  "referrerPolicy": {"policy": "no-referrer"}
+  "referrerPolicy": {"policy": "no-referrer"},
+  "contentSecurityPolicy": false
 }
 ```
 
@@ -301,7 +302,8 @@ fastify.route({
   schema: {hide: true},
   handler: function (req, reply) {
     reply.sendFile('favicon.ico')
-  }
+  },
+  logLevel: 'warn'
 })
 ```
 

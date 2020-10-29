@@ -3,6 +3,7 @@
 .vscode
 kubernetes
 node_modules
+storage
 .*
 Dockerfile
 Jenkinsfile*
@@ -11,4 +12,5 @@ LICENSE
 
 core/plugins/**/_*.js
 core/services/**/_*.js
-*.env.json
+**/*.env*
+**/*.http
