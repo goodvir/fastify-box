@@ -29,6 +29,7 @@ const opts = Object.assign(
     ajv: {
       // https://ajv.js.org/#options
       customOptions: {
+        unknownFormats: ['binary'],
         removeAdditional: false,
         allErrors: true,
         nullable: true
@@ -67,17 +68,14 @@ if (config.plugins.cors) fastify.register(require('fastify-cors'))
 // https://github.com/fastify/fastify-helmet
 if (config.plugins.helmet)
   fastify.register(require('fastify-helmet'), {
-    referrerPolicy: {policy: 'no-referrer'}
+    referrerPolicy: {policy: 'no-referrer'},
+    contentSecurityPolicy: false
   })
 
 // Multipart support
 // Поддержка обработки HTML форм
 // https://github.com/fastify/fastify-multipart
-if (config.plugins.multipart)
-  fastify.register(require('fastify-multipart'), {
-    addToBody: true,
-    sharedSchemaId: 'multipart'
-  })
+if (config.plugins.multipart) fastify.register(require('fastify-multipart'))
 
 // A low overhead rate limiter for your routes
 // Ограничение количества запросов для пользователя
@@ -124,7 +122,8 @@ if (config.plugins.static) {
     schema: {hide: true},
     handler: function (req, reply) {
       reply.sendFile('favicon.ico')
-    }
+    },
+    logLevel: 'warn'
   })
 }
 
@@ -176,6 +175,20 @@ fastify.addHook('preValidation', (req, reply, done) => {
   done()
 })
 
+// Loading your custom plugins [./core/plugins]
+// Загрузка пользовательских плагинов
+fastify.register(autoLoad, {
+  dir: config.path.plugins,
+  ignorePattern: /^_.*/
+})
+
+// Loading your custom services [./core/services]
+// Загрузка пользовательских сервисов
+fastify.register(autoLoad, {
+  dir: config.path.services,
+  ignorePattern: /^_.*/
+})
+
 // Logging the content of response
 // Печать параметров ответа в режиме FST_LOG_LEVEL='debug'
 fastify.addHook('onSend', (req, reply, payload, done) => {
@@ -193,20 +206,6 @@ fastify.addHook('onSend', (req, reply, payload, done) => {
   }
   req.log.debug(log, `parsed response`)
   done(null, payload)
-})
-
-// Loading your custom plugins [./core/plugins]
-// Загрузка пользовательских плагинов
-fastify.register(autoLoad, {
-  dir: config.path.plugins,
-  ignorePattern: /^_.*/
-})
-
-// Loading your custom services [./core/services]
-// Загрузка пользовательских сервисов
-fastify.register(autoLoad, {
-  dir: config.path.services,
-  ignorePattern: /^_.*/
 })
 
 // Start server
