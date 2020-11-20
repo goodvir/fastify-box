@@ -86,6 +86,7 @@ const config = {
     basedir: __dirname,
     core: path.join(__dirname, 'core'),
     plugins: path.join(__dirname, 'core', 'plugins'),
+    schemas: path.join(__dirname, 'core', 'schemas', '**/*.json'),
     services: path.join(__dirname, 'core', 'services'),
     static: path.join(__dirname, 'core', 'static'),
     templates: path.join(__dirname, 'core', 'templates')

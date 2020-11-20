@@ -122,6 +122,7 @@ FST_LOG_PAYLOAD=0
 ```
 ├── core/
 │   ├── plugins/        - registering global plugins
+│   ├── schemas/        - custom JSON schemas
 │   ├── services/       - registering services
 │   ├── static/         - files available at URL "/static/**/*"
 │   └── templates/      - page templates

@@ -47,6 +47,7 @@
     "fastify-request-context": "^2.1.1",
     "fastify-sensible": "^3.0.1",
     "fastify-static": "^3.3.0",
+    "glob": "^7.1.6",
     "html-minifier": "^4.0.0",
     "hyperid": "^2.0.5",
     "make-promises-safe": "^5.1.0",
@@ -60,7 +61,7 @@
     "tap": "^14.11.0"
   },
   "nodemonConfig": {
-    "ext": "js",
+    "ext": "js,json",
     "watch": [
       "core",
       "app.js",

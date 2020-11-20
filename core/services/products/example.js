@@ -26,6 +26,23 @@ async function exampleServiceProducts(fastify) {
   fastify.route({
     method: 'GET',
     url: '/:id',
+    schema: {
+      params: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['id'],
+        properties: {
+          id: {
+            type: 'number',
+            minimum: 1,
+            example: 43
+          }
+        }
+      },
+      response: {
+        200: {$ref: 'product#'}
+      }
+    },
     handler: async function (req) {
       return {
         id: req.params.id,

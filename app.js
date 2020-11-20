@@ -30,8 +30,10 @@ module.exports = function (options = {}) {
         // https://ajv.js.org/#options
         customOptions: {
           unknownFormats: ['binary'],
-          removeAdditional: false,
-          allErrors: true,
+          removeAdditional: true,
+          useDefaults: true,
+          coerceTypes: true,
+          allErrors: false,
           nullable: true
         }
       }
@@ -163,6 +165,13 @@ module.exports = function (options = {}) {
     reply.header('X-Trace-Id', req.id)
     done()
   })
+
+  // Loading custom JSON schemas
+  // Загрузка пользовательских JSON схем
+  // https://www.fastify.io/docs/latest/Validation-and-Serialization
+  const glob = require('glob')
+  const searchSchemas = glob.sync(config.path.schemas, {nonull: false, debug: false})
+  for (const schemaPath of searchSchemas) fastify.addSchema(require(schemaPath))
 
   // Logging the content of requests
   // Печать параметров запроса в режиме FST_LOG_LEVEL='debug'

@@ -1,0 +1,29 @@
+{
+  "$id": "product",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "number",
+      "example": 43
+    },
+    "params": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "size": {
+          "type": "number",
+          "example": 36
+        },
+        "price": {
+          "type": "number",
+          "example": 2020
+        },
+        "lang": {
+          "type": "string",
+          "example": "EN"
+        }
+      }
+    }
+  }
+}
