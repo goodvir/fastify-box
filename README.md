@@ -71,12 +71,13 @@ The settings from the file `config.js` are available in the decorator `fastify.c
 
 ### Application settings
 
-| Setting                | Description                                      | Default           |
-|:-----------------------|:-------------------------------------------------|:-----------------:|
-| `NODE_ENV`             | Operating modes `string`                         | `unknown`         |
-| `FST_PORT`             | Listening port `integer`                         | `3000`            |
-| `FST_ADDRESS`          | Listening interface  `string`                    | `0.0.0.0`         |
-| `FST_LOG_LEVEL`        | Logging level `string`                           | `info` or `debug` |
+| Setting                 | Description                                      | Default           |
+|:------------------------|:-------------------------------------------------|:-----------------:|
+| `NODE_ENV`              | Operating modes `string`                         | `unknown`         |
+| `FST_PORT`              | Listening port `integer`                         | `3000`            |
+| `FST_ADDRESS`           | Listening interface  `string`                    | `0.0.0.0`         |
+| `FST_LOG_LEVEL`         | Logging level `string`                           | `info` or `debug` |
+| `FST_LOG_PAYLOAD`       | Logging debug payload `bool`                     | `false`            |
 
 ### Information settings
 
@@ -101,6 +102,19 @@ The settings from the file `config.js` are available in the decorator `fastify.c
 | `FST_STATIC`     | [fastify-static](#fastify-static)                   | `true`  |
 | `FST_RENDER`     | [point-of-view](#point-of-view)                     | `true`  |
 
+### Example `.env` for development
+
+```dotenv
+NODE_ENV=development
+FST_ADDRESS=127.0.0.1
+FST_COMPRESS=1
+FST_CORS=1
+FST_HELMET=0
+FST_RATE_LIMIT=0
+FST_LOG_LEVEL=debug
+FST_LOG_PAYLOAD=0
+```
+
 ## Documentation
 
 ### Directory content
@@ -111,18 +125,21 @@ The settings from the file `config.js` are available in the decorator `fastify.c
 │   ├── services/       - registering services
 │   ├── static/         - files available at URL "/static/**/*"
 │   └── templates/      - page templates
+├── test/               - appliaction testing
+├── .dockerignore       - https://docs.docker.com
 ├── .editorconfig       - https://editorconfig.org
 ├── .env                - variable environment settings
 ├── .gitattributes
 ├── .gitignore
 ├── .prettierignore
 ├── .prettiererrc       - https://prettier.io
-├── app.js              - application launch file
+├── app.js              - application creating file
 ├── config.js           - application settings 
 ├── LICENSE
 ├── package.json        - package definition and dependencies
 ├── package-lock.json   - pinned dependency versions
-└── README.md            
+├── README.md
+└── server.js           - application launch file
 ```
 
 ### Pre-installed plugins
@@ -199,7 +216,7 @@ Plugin enabled by default, to deactivate it set: `FST_MULTIPART=false`.
 **Example:**
 ```js
 fastify.post('/', async function (req, reply) {
-  const options = {limits: {fileSize: 1000}}
+  const options = {limits: {fileSize: 10485760}}
   const data = await req.file(options)
   await pump(data.file, fs.createWriteStream(data.filename))
   reply.send()

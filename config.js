@@ -45,7 +45,7 @@ const config = {
   address: getValue('FST_ADDRESS', '0.0.0.0'),
   logLevel: getValue('FST_LOG_LEVEL', process.env.NODE_ENV === 'development' ? 'debug' : 'info'),
   debug: process.env.NODE_ENV === 'development',
-  logDebugPayload: getValue('FST_LOG_DEBUG_PAYLOAD', true, true),
+  logDebugPayload: getValue('FST_LOG_PAYLOAD', false, true),
 
   // Fastify instance settings
   // Настройки экземпляра fastify
