@@ -74,3 +74,8 @@ async function exampleService(fastify) {
 }
 
 module.exports = exampleService
+module.exports.autoload = true
+
+// Для настройки префиксов используйте
+// module.exports.autoPrefix = '/something'
+// module.exports.prefixOverride = '/overriddenPrefix'
