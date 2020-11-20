@@ -4,6 +4,8 @@
 kubernetes
 node_modules
 storage
+test
+*.test.js
 .*
 Dockerfile
 Jenkinsfile*
