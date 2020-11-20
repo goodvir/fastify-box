@@ -36,12 +36,16 @@ const getValue = (name, defaultValue = null, boolean = false) => {
 }
 
 const config = {
+  // Get ENV value
+  getEnvValue: getValue,
+
   // Basic settings
   // Основные настройки сервера
-  port: getValue('FST_PORT', 8080),
+  port: +getValue('FST_PORT', 8080),
   address: getValue('FST_ADDRESS', '0.0.0.0'),
   logLevel: getValue('FST_LOG_LEVEL', process.env.NODE_ENV === 'development' ? 'debug' : 'info'),
   debug: process.env.NODE_ENV === 'development',
+  logDebugPayload: getValue('FST_LOG_PAYLOAD', false, true),
 
   // Fastify instance settings
   // Настройки экземпляра fastify
@@ -49,6 +53,16 @@ const config = {
     // Any settings described in the documentation
     // Любые настройки описанные в документации
     // https://www.fastify.io/docs/latest/Server
+  },
+
+  // AutoLoad plugin settings
+  // Настройки плагина autoLoad
+  autoLoad: {
+    // Any settings described in the documentation
+    // Любые настройки описанные в документации
+    // https://github.com/fastify/fastify-autoload
+    dirNameRoutePrefix: true,
+    maxDepth: 5
   },
 
   // Plugins settings
@@ -72,6 +86,7 @@ const config = {
     basedir: __dirname,
     core: path.join(__dirname, 'core'),
     plugins: path.join(__dirname, 'core', 'plugins'),
+    schemas: path.join(__dirname, 'core', 'schemas', '**/*.json'),
     services: path.join(__dirname, 'core', 'services'),
     static: path.join(__dirname, 'core', 'static'),
     templates: path.join(__dirname, 'core', 'templates')
