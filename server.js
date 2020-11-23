@@ -13,11 +13,13 @@ const server = require('./app')()
 
 // Printing Registered Routes
 // Печать зарегистрированных маршрутов
-server.ready(() => console.log(`\n${server.printRoutes()}`))
+server.addHook('onReady', async () => {
+  console.log(`\n${server.printRoutes()}`)
+})
 
 // Start server
 // Запуск сервера
-server.listen(config.port, config.address, function (e) {
+server.listen(+config.port, config.address, function (e) {
   if (e) {
     console.log(e)
     process.exit(1)
